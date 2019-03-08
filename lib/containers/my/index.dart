@@ -11,6 +11,7 @@ class _My extends State<My> {
   @override
   void initState() {
     super.initState();
+    print('我的');
   }
 
   @override

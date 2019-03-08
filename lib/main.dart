@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'containers/index.dart';
+import 'apiRequest/index.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,14 +14,20 @@ class MyApp extends StatefulWidget {
 
 class CloudMusic extends State<MyApp> {
   int _currentIndex = 0;
+  bool loginSuccess = false;
 
   @override
   void initState() {
     super.initState();
+    (() async {
+      await login();
+      setState(() {
+        loginSuccess = true;
+      });
+    })();
   }
 
   setCurrentPageIndex (index) {
-    print(index);
     setState(() {
       _currentIndex = index;
     });
@@ -34,7 +41,7 @@ class CloudMusic extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: IndexedStack(
+        body: !loginSuccess ? Text('loading...') : IndexedStack(
           index: _currentIndex,
           children: mainPages
         ),

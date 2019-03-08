@@ -13,6 +13,7 @@ class _Discover extends State<Discover> {
   @override
   void initState() {
     super.initState();
+    print('发现');
   }
 
   gotoPlaying () async {
@@ -23,6 +24,7 @@ class _Discover extends State<Discover> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
+      initialIndex: 0, // 默认显示的是TabBarView里的第几个child
       child: Scaffold(
         appBar: AppBar(
           elevation: 0, // 设置阴影辐射范围  可以去掉底部阴影

@@ -11,6 +11,7 @@ class _Video extends State<Video> {
   @override
   void initState() {
     super.initState();
+    print('视频');
   }
 
   @override

@@ -14,6 +14,7 @@ class _RadioParent extends State<RadioParent> with AutomaticKeepAliveClientMixin
   @override
   void initState() {
     super.initState();
+    print('电台');
   }
 
   @override

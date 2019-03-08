@@ -16,9 +16,8 @@ class _Carousels extends State<Carousels> {
     super.initState();
     (() async {
       final res = await _getCarousels();
-      print('carousels');
       setState(() {
-        carousels = res.data['banners'];
+        carousels = res['banners'];
       });
     })();
   }
@@ -30,15 +29,13 @@ class _Carousels extends State<Carousels> {
   @override
   void didChangeDependencies () {
     super.didChangeDependencies();
-/*     print('didChange');
-    print(carousels); */
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 170.0,
-      child: Swiper(
+      child: carousels.length == 0 ? null : Swiper(
         autoplay: true,
         itemBuilder: (BuildContext context, int index) {
           return new Image.network(
@@ -47,7 +44,7 @@ class _Carousels extends State<Carousels> {
             height: 170.0,
           );
         },
-        itemCount: 9,
+        itemCount: carousels.length,
         viewportFraction: 0.8,
         scale: 0.9,
       )

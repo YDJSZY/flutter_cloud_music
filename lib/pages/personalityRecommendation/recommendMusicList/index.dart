@@ -15,30 +15,28 @@ class _RecommendMusicList extends State<RecommendMusicList> {
   void initState() {
     super.initState();
     (() async {
-      final res = await _getRecommendMusicList();
-      print(res);
-      /* setState(() {
-        musicList = res.data['banners'];
-      }); */
+      var res = await _getRecommendMusicList();
+      setState(() {
+        musicList = res['recommend'];
+      });
     })();
+    
   }
 
   _getRecommendMusicList() async {
-    var loginRes = await login();
-    return await getRecommendMusicList(loginRes);
+    return await getRecommendMusicList();
   }
 
   @override
   void didChangeDependencies () {
     super.didChangeDependencies();
-    _getRecommendMusicList();
 /*     print('didChange');
     print(carousels); */
   }
 
   @override
   Widget build(BuildContext context) {
-    _getRecommendMusicList();
+    print(musicList);
     return Container(
       padding: EdgeInsets.fromLTRB(8.0, 15.0, 0, 15.0),
       child: Row(

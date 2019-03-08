@@ -1,32 +1,39 @@
 import 'package:dio/dio.dart';
-import 'package:cookie_jar/cookie_jar.dart';
-
+// import 'package:cookie_jar/cookie_jar.dart';
 var dio = Dio();
-const String apiPrefix = 'http://192.168.1.29:3000/';
+var loginCookie;
+const String apiPrefix = 'http://192.168.31.104:3000/';
+
+login() async {
+  dio.interceptors.add(InterceptorsWrapper(
+    onRequest:(RequestOptions options){}
+  ));
+  try {
+    Response response = await dio.get("${apiPrefix}login/cellphone", queryParameters: {'phone': '18649685236', 'password': '1314520ZY'}, options: Options(extra: {'xhrFields': {'withCredentials': true}}));
+    loginCookie = response.headers['set-cookie'];
+  } catch (e) {
+    print(e);
+  }
+}
 
 getCarousels() async { // 获取首页轮播图
   try {
     Response response = await dio.get("${apiPrefix}banner");
-    return response;
+    return response.data;
   } catch (e) {
     print(e);
   }
 }
 
-login() async {
+getRecommendMusicList() async {
   try {
-    Response response = await dio.get("${apiPrefix}login/cellphone", queryParameters: {'phone': '18649685236', 'password': '1314520ZY'}, options: Options(extra: {'xhrFields': {'withCredentials': true}}));
-    return response.headers['set-cookie'];
-  } catch (e) {
-    print(e);
-  }
-}
-
-getRecommendMusicList(loginRes) async {
-  try {
-    Response response = await dio.get("${apiPrefix}recommend/resource", options: Options(extra: {'xhrFields': {'withCredentials': true}}, headers: {'cookie': loginRes}));
-    print(response);
-    return response;
+    Response response = await dio.get(
+      "${apiPrefix}recommend/resource", 
+      options: Options(
+        extra: {'xhrFields': {'withCredentials': true}}, 
+        headers: {'cookie': loginCookie}
+      ));
+    return response.data;
   } catch (e) {
     print(e.error);
   }
