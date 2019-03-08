@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'carousel/index.dart';
 import 'tabTypes/index.dart';
+import 'recommendMusicList/index.dart';
 
 class RecommendParent extends StatefulWidget {
   @override
@@ -25,7 +26,8 @@ class _RecommendParent extends State<RecommendParent> with AutomaticKeepAliveCli
       child: Column(
         children: <Widget>[
           Carousels(),
-          TabTypes()
+          TabTypes(),
+          RecommendMusicList()
         ],
       ),
     );

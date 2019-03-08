@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../../apiRequest/index.dart';
 
 class Carousels extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    print('111');
     return _Carousels();
   }
 }
@@ -16,7 +14,6 @@ class _Carousels extends State<Carousels> {
   @override
   void initState() {
     super.initState();
-    print('9999');
     (() async {
       final res = await _getCarousels();
       print('carousels');
@@ -39,7 +36,6 @@ class _Carousels extends State<Carousels> {
 
   @override
   Widget build(BuildContext context) {
-    print(carousels);
     return Container(
       height: 170.0,
       child: Swiper(
