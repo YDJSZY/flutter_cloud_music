@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'carousel/index.dart';
 import 'tabTypes/index.dart';
 import 'recommendMusicList/index.dart';
+import 'recommendNewestMusic/index.dart';
+import 'recommendRadio/index.dart';
 
 class RecommendParent extends StatefulWidget {
   @override
@@ -22,12 +24,14 @@ class _RecommendParent extends State<RecommendParent> with AutomaticKeepAliveCli
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
+    return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Carousels(),
           TabTypes(),
-          RecommendMusicList()
+          RecommendMusicList(),
+          RecommendSongs(),
+          RecommendRadio(),
         ],
       ),
     );

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 var dio = Dio();
 var loginCookie;
-const String apiPrefix = 'http://192.168.31.104:3000/';
+const String apiPrefix = 'http://192.168.1.29:3000/';
 
 login() async {
   dio.interceptors.add(InterceptorsWrapper(
@@ -36,5 +36,48 @@ getRecommendMusicList() async {
     return response.data;
   } catch (e) {
     print(e.error);
+  }
+}
+
+getRecommendSongs() async {
+  try {
+    Response response = await dio.get(
+      "${apiPrefix}recommend/songs", 
+      options: Options(
+        extra: {'xhrFields': {'withCredentials': true}}, 
+        headers: {'cookie': loginCookie}
+      ));
+    return response.data;
+  } catch (e) {
+    print(e.error);
+  }
+}
+
+getRecommendRadio() async {
+  try {
+    Response response = await dio.get(
+      "${apiPrefix}personalized/djprogram", 
+      options: Options(
+        extra: {'xhrFields': {'withCredentials': true}}, 
+        headers: {'cookie': loginCookie}
+      ));
+    return response.data;
+  } catch (e) {
+    print(e.error);
+  }
+}
+
+getMusicListDetail(id) async {
+  try {
+    Response response = await dio.get(
+      "${apiPrefix}playlist/detail", 
+      queryParameters: {'id': id},
+      options: Options(
+        extra: {'xhrFields': {'withCredentials': true}}, 
+        headers: {'cookie': loginCookie}
+      ));
+    return response.data;
+  } catch (e) {
+    print(e);
   }
 }

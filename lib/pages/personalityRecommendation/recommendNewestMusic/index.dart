@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../../components/listTitle/index.dart';
 import '../../../apiRequest/index.dart';
-import '../../musicListDetail/index.dart';
 
-class RecommendMusicList extends StatefulWidget {
+class RecommendSongs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _RecommendMusicList();
+    return _RecommendSongs();
   }
 }
 
-class _RecommendMusicList extends State<RecommendMusicList> {
+class _RecommendSongs extends State<RecommendSongs> {
   List<Widget> recommendList = [];
 
   @override
   void initState() {
     super.initState();
     (() async {
-      var res = await _getRecommendMusicList();
+      var res = await _getData();
       var recommend = res['recommend'];
       // print(recommend);
       var _tempRecommendList = _createMuisicList(recommend);
@@ -27,35 +26,25 @@ class _RecommendMusicList extends State<RecommendMusicList> {
     })();
   }
 
-  _gotoDetai(id) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MusicListDetail(id)),
-    );
-  }
-
   List<Widget> _createMuisicList(data) {
     List<Widget> _tempRecommendList = [];
     List<Widget> _tempList = [];
     for (var i = 0; i < 6; i++) {
       var e = Expanded(
         flex: 1,
-        child: GestureDetector(
-          onTap: () => _gotoDetai(data[i]['id']),
-          child: Container(
-            padding: EdgeInsets.only(right: 8.0, bottom: 5.0),
-            child: Column(
-              children: <Widget>[
-                new Image.network(data[i]['picUrl']),
-                Text(
-                  data[i]['name'],
-                  maxLines: 2, // 最多两行文字
-                  overflow: TextOverflow.ellipsis, // 超过点点点显示
-                )
-              ],
-            )
+        child: Container(
+          padding: EdgeInsets.only(right: 8.0, bottom: 5.0),
+          child: Column(
+            children: <Widget>[
+              new Image.network(data[i]['album']['blurPicUrl']),
+              Text(
+                data[i]['name'],
+                maxLines: 2, // 最多两行文字
+                overflow: TextOverflow.ellipsis, // 超过点点点显示
+              )
+            ],
           )
-        )
+        ),
       );
       _tempList.add(e);
       if ((i + 1) % 3 != 0) { // 每3个一行
@@ -72,8 +61,8 @@ class _RecommendMusicList extends State<RecommendMusicList> {
     return _tempRecommendList;
   }
 
-  _getRecommendMusicList() async {
-    return await getRecommendMusicList();
+  _getData() async {
+    return await getRecommendSongs();
   }
 
   @override
@@ -95,7 +84,7 @@ class _RecommendMusicList extends State<RecommendMusicList> {
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          ListTitle(title: '推荐歌单', more: true, handleClick: _checkMusicListMore).build(),
+          ListTitle(title: '推荐音乐', more: true, handleClick: _checkMusicListMore).build(),
           Container(
             child: Column(
               children: recommendList.toList(),
