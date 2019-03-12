@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'containers/index.dart';
 import 'apiRequest/index.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+}
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.

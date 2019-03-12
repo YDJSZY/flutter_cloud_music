@@ -82,16 +82,23 @@ class _MusicListDetail extends State<MusicListDetail> {
                     fit: BoxFit.fitWidth,
                   ) : Container(),
                   BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
                     child: new Container(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.black.withOpacity(0.25),
                       height: 200.0,
                       child: Container(
                         padding: EdgeInsets.all(15.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            coverImgUrl != null ? Image.network(songList['playlist']['coverImgUrl'], width: 150.0, height: 150.0,) : Container(),
+                            coverImgUrl != null ? 
+                              Image.network(
+                                songList['playlist']['coverImgUrl'], 
+                                width: 150.0, 
+                                height: 150.0,
+                                // filterQuality: ,
+                              )
+                              : Container(),
                             Flexible( // 包装在Flexible控件中，使其填充Row主轴中的可用空间
                               child: Container(
                                 padding: EdgeInsets.only(left: 15.0),
