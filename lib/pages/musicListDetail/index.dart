@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../../apiRequest/index.dart';
+import '../audioPlayer/index.dart';
 
 class MusicListDetail extends StatefulWidget {
   final int musicListId;
@@ -25,7 +26,7 @@ class _MusicListDetail extends State<MusicListDetail> {
   _getMusicListDetail(id) async {
     print(id);
     var res = await getMusicListDetail(id);
-    print(res);
+    print(res['playlist']['tracks']);
     setState(() {
       songList = res;
     });
@@ -51,30 +52,40 @@ class _MusicListDetail extends State<MusicListDetail> {
     List<Widget> list = [];  
     for (var i = 0; i < tracks.length; i++) {
       var num = i + 1;
-      var songItem = Container(
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(15.0),
-              child: Text(num.toString()),
-            ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(top: 15.0, right: 15.0, bottom: 15.0),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1.0, color: Color(0xFFDCDCDC))
-                  )
-                ),
-                child: Text(tracks[i]['name'], style: TextStyle(fontSize: 14.0),),
+      var songItem = GestureDetector(
+        onTap: () => _gotoPlay(tracks, i),
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(15.0),
+                child: Text(num.toString()),
               ),
-            )
-          ],
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(top: 15.0, right: 15.0, bottom: 15.0),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 1.0, color: Color(0xFFDCDCDC))
+                    )
+                  ),
+                  child: Text(tracks[i]['name'], style: TextStyle(fontSize: 14.0),),
+                ),
+              )
+            ],
+          )
         )
       );
       list.add(songItem);
     }
     return list;
+  }
+
+  _gotoPlay(musicList, index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AudioPlayerPage(musicList, index)),
+    );
   }
 
   @override

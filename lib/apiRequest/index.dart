@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 var dio = Dio();
 var loginCookie;
-const String apiPrefix = 'http://192.168.1.29:3000/';
+const String apiPrefix = 'http://192.168.31.104:3000/';
 
 login() async {
   dio.interceptors.add(InterceptorsWrapper(
@@ -75,6 +75,21 @@ getMusicListDetail(id) async {
       options: Options(
         extra: {'xhrFields': {'withCredentials': true}}, 
         headers: {'cookie': loginCookie}
+      ));
+    return response.data;
+  } catch (e) {
+    print(e);
+  }
+}
+
+getMusicPlayUrl(id) async {
+  try {
+    Response response = await dio.get(
+      "${apiPrefix}song/url", 
+      queryParameters: {'id': id},
+      options: Options(
+        extra: {'xhrFields': {'withCredentials': true}}, 
+        // headers: {'cookie': loginCookie}
       ));
     return response.data;
   } catch (e) {

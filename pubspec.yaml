@@ -26,6 +26,7 @@ dependencies:
   dio: 2.0.15
   flutter_swiper: 1.1.4
   cookie_jar: ^1.0.0
+  audioplayers: ^0.10.0
 
 dev_dependencies:
   flutter_test:
