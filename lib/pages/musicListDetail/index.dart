@@ -137,7 +137,7 @@ class _MusicListDetail extends State<MusicListDetail> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text(songList['playlist']['name'], style: TextStyle(fontSize: 18.0), overflow: TextOverflow.clip,),
+                                      Text(songList['playlist']['name'], style: TextStyle(fontSize: 18.0, color: Colors.white), overflow: TextOverflow.clip,),
                                       avatarUrl != null ? Container(
                                         padding: EdgeInsets.only(top: 20.0),
                                         child: Row(
@@ -150,7 +150,10 @@ class _MusicListDetail extends State<MusicListDetail> {
                                                 backgroundImage: NetworkImage(songList['playlist']['creator']['avatarUrl']),
                                               ),
                                             ),
-                                            Text(avatarName)
+                                            Flexible(
+                                              child: Text(avatarName, maxLines: 1, overflow: TextOverflow.ellipsis, softWrap: true, style: TextStyle(color: Colors.white),)
+                                              )
+                                            
                                           ],
                                         )
                                       ) : Container()
