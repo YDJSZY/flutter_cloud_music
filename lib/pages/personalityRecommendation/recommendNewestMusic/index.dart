@@ -30,13 +30,14 @@ class _RecommendSongs extends State<RecommendSongs> {
     List<Widget> _tempRecommendList = [];
     List<Widget> _tempList = [];
     for (var i = 0; i < 6; i++) {
+      var imgUrl = data[i]['album']['blurPicUrl'] == null ? data[i]['album']['picUrl'] : data[i]['album']['blurPicUrl'];
       var e = Expanded(
         flex: 1,
         child: Container(
           padding: EdgeInsets.only(right: 8.0, bottom: 5.0),
           child: Column(
             children: <Widget>[
-              new Image.network(data[i]['album']['blurPicUrl']),
+              new Image.network(imgUrl),
               Text(
                 data[i]['name'],
                 maxLines: 2, // 最多两行文字

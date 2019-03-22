@@ -70,6 +70,22 @@ class _AudioPlayerPage extends State<AudioPlayerPage> {
               filter: ImageFilter.blur(sigmaX: 200, sigmaY: 140),
               child: new Container(
                 color: Colors.black.withOpacity(0.25),
+                child: Column(
+                  children: <Widget>[
+                    new Container(
+                      margin: EdgeInsets.only(left: 70.0),
+                      width: 200.0,
+                      height: 200.0,
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationZ(1),
+                      decoration: new BoxDecoration(
+                        image: DecorationImage(
+                          image: new AssetImage('lib/assets/images/play_needle.png'),
+                        ),
+                      )
+                    )
+                  ],
+                ),
               )
             )
           ]
