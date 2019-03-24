@@ -116,6 +116,7 @@ class _MusicListDetail extends State<MusicListDetail> {
                     color: Colors.black.withOpacity(0.25),
                     height: 200.0,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.all(15.0),

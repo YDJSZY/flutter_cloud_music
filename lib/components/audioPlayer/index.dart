@@ -14,4 +14,8 @@ class CustomAudioPlayer {
   Future<void> stop() async {
     await audioPlayer.stop();
   }
+
+  Future<void> resume() async {
+    await audioPlayer.resume();
+  }
 }
