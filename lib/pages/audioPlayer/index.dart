@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:ui';
 import '../../components/audioPlayer/index.dart';
 import '../../apiRequest/index.dart';
+import '../../components/playDisc/index.dart';
 
 class AudioPlayerPage extends StatefulWidget {
   final int currentPlayIndex; // 当前播放的音频是哪一个
@@ -41,7 +42,7 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
       controller.forward();
       audioPlayer.resume();
     } else {
-      controller.reverse();
+      controller.reverse(); // 返回到初始的动画
       audioPlayer.pause(); // 暂停播放
     }
     setState(() {
@@ -51,9 +52,9 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
 
   _setPlayAnimation() {
     controller = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 1000));
+      vsync: this, duration: const Duration(milliseconds: 200));
     // 通过 Tween 对象 创建 Animation 对象
-    animation = Tween(begin: 10.0, end: 40.0).animate(controller)
+    animation = Tween(begin: 10.0, end: 100.0).animate(controller)
       ..addListener(() {
         // 注意：这句不能少，否则 widget 不会重绘，也就看不到动画效果
         setState(() {});
@@ -81,7 +82,6 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
     } else {
       status = true;
     }
-    print(status);
     _setPlayStatus(status);
   }
 
@@ -112,28 +112,38 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
               filter: ImageFilter.blur(sigmaX: 200, sigmaY: 140),
               child: new Container(
                 color: Colors.black.withOpacity(0.25),
-                child: Column(
+                child: Stack(
+                  alignment: Alignment.topCenter, //指定未定位或部分定位widget的对齐方式
                   children: <Widget>[
-                    Transform.translate(
-                      offset: Offset(50, 0),
-                      child: Transform.rotate(
-                        alignment: Alignment.topLeft,
-                      //origin: Offset(100, 0),
-                        angle: -math.pi / (animation != null ? animation.value : 10),
-                        child: Container(
-                          //margin: EdgeInsets.only(left: 75.0),
-                          child: Image.asset(
-                            'lib/assets/images/play_needle.png',
-                            width: 150,
-                            height: 200
+                    Positioned(
+                      top: 70,
+                      child: bgImg != null ? PlayDisc(bgImg, isPlaying) : Container()
+                    ),
+                    Positioned(
+                      child: Transform.translate(
+                        offset: Offset(50, 0),// 移动
+                        child: Transform.rotate(
+                          alignment: Alignment.topLeft,
+                          angle: -math.pi / (animation != null ? animation.value : 10),
+                          child: Container(
+                            child: Image.asset(
+                              'lib/assets/images/play_needle.png',
+                              width: 150,
+                              height: 180
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    FlatButton(
-                      color: Colors.red,
-                      child: Text('click'),
-                      onPressed: _stopPlay,
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text('play'),
+                            onPressed: _stopPlay,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
