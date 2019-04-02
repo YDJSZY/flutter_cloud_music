@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 var dio = Dio();
 var loginCookie;
-const String apiPrefix = 'http://192.168.31.104:3000/';
+const String apiPrefix = 'http://192.168.1.29:3000/';
 
 login() async {
   dio.interceptors.add(InterceptorsWrapper(

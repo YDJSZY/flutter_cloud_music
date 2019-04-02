@@ -24,18 +24,16 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
   CustomAudioPlayer audioPlayer = CustomAudioPlayer();
   Map currentPlayAudioMsg = {'name': '', 'ar': [{'name': ''}], 'al': {}};
   bool isPlaying = false;
+  int currentPlayIndex;
 
   @override
   void initState() {
     super.initState();
-    var currentPlayAudioMsg = _getCurrentPlayAudio(widget.currentPlayIndex); // 当前播放的音频信息
+    setState(() {
+      currentPlayIndex = widget.currentPlayIndex;
+    });
+    _getCurrentPlayAudio(widget.currentPlayIndex); // 当前播放的音频信息
     _setPlayAnimation();
-    (() async {
-      var audioDetaiMsg = await _getMusicPlayUrl(currentPlayAudioMsg['id']);
-      var audioPlayUrl = audioDetaiMsg['data'][0]['url'];
-      audioPlayer.play(audioPlayUrl);
-      _setPlayStatus(true);
-    })();
   }
 
   _setPlayStatus(bool status) {
@@ -63,12 +61,15 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
     // 执行动画
   }
 
-  Map _getCurrentPlayAudio(int index) {
+  void _getCurrentPlayAudio(int index) async {
     var data = widget.audioList[index]; // 当前播放的音频信息
     setState(() {
       currentPlayAudioMsg = data;
     });
-    return data;
+    var audioDetaiMsg = await _getMusicPlayUrl(data['id']);
+    var audioPlayUrl = audioDetaiMsg['data'][0]['url'];
+    audioPlayer.play(audioPlayUrl);
+    _setPlayStatus(true);
   }
 
   _getMusicPlayUrl(id) async {
@@ -77,7 +78,17 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
   }
 
   _prev() {
-
+    var len = widget.audioList.length;
+    var index = currentPlayIndex;
+    if (index == 0) {
+      index = len - 1;
+    } else {
+      --index;
+    }
+    setState(() {
+      currentPlayIndex = index;
+    });
+    _getCurrentPlayAudio(index);
   }
 
   _play() {
@@ -91,7 +102,17 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
   }
 
   _next() {
-
+    var len = widget.audioList.length;
+    var index = currentPlayIndex;
+    if (index == len - 1) {
+      index = 0;
+    } else {
+      ++index;
+    }
+    setState(() {
+      currentPlayIndex = index;
+    });
+    _getCurrentPlayAudio(index);
   }
 
   @override
