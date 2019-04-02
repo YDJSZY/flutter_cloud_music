@@ -4,6 +4,7 @@ import 'dart:ui';
 import '../../components/audioPlayer/index.dart';
 import '../../apiRequest/index.dart';
 import '../../components/playDisc/index.dart';
+import '../../components/audioPlayHandle/index.dart';
 
 class AudioPlayerPage extends StatefulWidget {
   final int currentPlayIndex; // 当前播放的音频是哪一个
@@ -75,7 +76,11 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
     return res;
   }
 
-  _stopPlay() {
+  _prev() {
+
+  }
+
+  _play() {
     bool status;
     if (isPlaying == true) {
       status = false;
@@ -83,6 +88,10 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
       status = true;
     }
     _setPlayStatus(status);
+  }
+
+  _next() {
+
   }
 
   @override
@@ -112,41 +121,42 @@ class _AudioPlayerPage extends State<AudioPlayerPage> with SingleTickerProviderS
               filter: ImageFilter.blur(sigmaX: 200, sigmaY: 140),
               child: new Container(
                 color: Colors.black.withOpacity(0.25),
-                child: Stack(
-                  alignment: Alignment.topCenter, //指定未定位或部分定位widget的对齐方式
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Positioned(
-                      top: 70,
-                      child: bgImg != null ? PlayDisc(bgImg, isPlaying) : Container()
-                    ),
-                    Positioned(
-                      child: Transform.translate(
-                        offset: Offset(50, 0),// 移动
-                        child: Transform.rotate(
-                          alignment: Alignment.topLeft,
-                          angle: -math.pi / (animation != null ? animation.value : 10),
-                          child: Container(
-                            child: Image.asset(
-                              'lib/assets/images/play_needle.png',
-                              width: 150,
-                              height: 180
+                    Stack(
+                      fit: StackFit.loose,
+                      overflow: Overflow.visible, // 超出显示
+                      alignment: Alignment.topCenter, //指定未定位或部分定位widget的对齐方式
+                      children: <Widget>[
+                        Positioned(
+                          top: 70,
+                          child: bgImg != null ? PlayDisc(bgImg, isPlaying) : Container()
+                        ),
+                        Positioned(
+                          child: Transform.translate(
+                            offset: Offset(50, 0),// 移动
+                            child: Transform.rotate(
+                              alignment: Alignment.topLeft,
+                              angle: -math.pi / (animation != null ? animation.value : 10),
+                              child: Container(
+                                child: Image.asset(
+                                  'lib/assets/images/play_needle.png',
+                                  width: 150,
+                                  height: 160
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
+                        )
+                      ],
                     ),
                     Container(
-                      child: Row(
-                        children: <Widget>[
-                          RaisedButton(
-                            child: Text('play'),
-                            onPressed: _stopPlay,
-                          )
-                        ],
-                      ),
+                      padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      child: AudioPlayHandle(_prev, _play, _next, isPlaying)
                     )
                   ],
-                ),
+                )
               )
             )
           ]

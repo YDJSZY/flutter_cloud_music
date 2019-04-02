@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../apiRequest/index.dart';
 
 class TabTypes extends StatelessWidget {
   final List<Map> tabs = [];
@@ -15,7 +16,8 @@ class TabTypes extends StatelessWidget {
     '排行榜'
   ];
   void generateTabIcon() {
-    for (var i = 0; i < 4; i++) {
+    var len = iconText.length;
+    for (var i = 0; i < len; i++) {
       final obj = {};
       final icon = icons[i];
       final container = generateTabContainer(icon);
@@ -38,6 +40,10 @@ class TabTypes extends StatelessWidget {
     );
   }
 
+  _test() {
+    getCarousels();
+  }
+
   @override
   Widget build(BuildContext context) {
     generateTabIcon();
@@ -53,11 +59,14 @@ class TabTypes extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: tabs.map((item) {
-          return Column(
-            children: <Widget>[
-              item['icon'],
-              Text(item['text'], style: TextStyle(color: Colors.red))
-            ],
+          return GestureDetector(
+            onTap: _test,
+            child: Column(
+              children: <Widget>[
+                item['icon'],
+                Text(item['text'], style: TextStyle(color: Colors.red))
+              ],
+            )
           );
         }).toList()
       ),

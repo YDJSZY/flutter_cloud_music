@@ -28,9 +28,9 @@ class _PlayDisc extends State<PlayDisc> with SingleTickerProviderStateMixin {
   }
 
   void dispose() {
+    controller.dispose();
     super.dispose();
     print('dispose');
-    controller.stop();
   }
 
   _setAnimation() {
@@ -72,7 +72,7 @@ class _PlayDisc extends State<PlayDisc> with SingleTickerProviderStateMixin {
             width: 330,
             height: 330,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.red, width: 6),
+              border: Border.all(color: Color(0xFF999999), width: 6),
               borderRadius: BorderRadius.all(Radius.circular(330))
             ),
             child: Image.asset(

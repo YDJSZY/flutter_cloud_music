@@ -11,6 +11,7 @@ login() async {
   try {
     Response response = await dio.get("${apiPrefix}login/cellphone", queryParameters: {'phone': '18649685236', 'password': '1314520ZY'}, options: Options(extra: {'xhrFields': {'withCredentials': true}}));
     loginCookie = response.headers['set-cookie'];
+    return loginCookie;
   } catch (e) {
     print(e);
   }
