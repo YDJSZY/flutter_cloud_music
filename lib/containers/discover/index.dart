@@ -32,7 +32,7 @@ class _Discover extends State<Discover> {
           backgroundColor: Color(0xFFC20C0C),
           title: Container(
             height: 34.0,
-            padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+            // padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
               color: Color(0xFFDCDCDC),
@@ -46,17 +46,17 @@ class _Discover extends State<Discover> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.list),
-                      Text('搜索音乐', textAlign: TextAlign.center),
+                      Icon(Icons.search),
+                      Text('搜索音乐', textAlign: TextAlign.center, style: TextStyle(fontSize: 15),),
                     ],
                   )
                 )
               ],
             )
           ),
-          leading: IconButton(icon: new Icon(Icons.list), onPressed: gotoPlaying), // 出现在标题左边
+          leading: IconButton(icon: new Icon(Icons.mic_none, size: 28,), onPressed: gotoPlaying), // 出现在标题左边
           actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.list), onPressed: gotoPlaying), // 出现在标题右边
+            new IconButton(icon: new Icon(Icons.equalizer, size: 28,), onPressed: gotoPlaying), // 出现在标题右边
           ],
           bottom: TabBar(
             tabs: [

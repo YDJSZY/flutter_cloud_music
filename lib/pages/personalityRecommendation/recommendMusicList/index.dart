@@ -19,7 +19,6 @@ class _RecommendMusicList extends State<RecommendMusicList> {
     (() async {
       var res = await _getRecommendMusicList();
       var recommend = res['recommend'];
-      // print(recommend);
       var _tempRecommendList = _createMuisicList(recommend);
       setState(() {
         recommendList = _tempRecommendList;
@@ -37,7 +36,8 @@ class _RecommendMusicList extends State<RecommendMusicList> {
   List<Widget> _createMuisicList(data) {
     List<Widget> _tempRecommendList = [];
     List<Widget> _tempList = [];
-    for (var i = 0; i < 6; i++) {
+    int len = data.length;
+    for (var i = 0; i < len; i++) {
       var e = Expanded(
         flex: 1,
         child: GestureDetector(
