@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../components/listTitle/index.dart';
 import '../../../apiRequest/index.dart';
 import '../../musicListDetail/index.dart';
+import '../../highqualityMusic/index.dart';
 
 class RecommendMusicList extends StatefulWidget {
   @override
@@ -84,7 +85,10 @@ class _RecommendMusicList extends State<RecommendMusicList> {
   }
 
   _checkMusicListMore() {
-    print(123);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HighqualityMusic('推荐')), // 查看更多推荐歌单
+    );
   }
 
   @override
