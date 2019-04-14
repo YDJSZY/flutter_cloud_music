@@ -24,9 +24,8 @@ class _MusicListDetail extends State<MusicListDetail> {
   }
 
   _getMusicListDetail(id) async {
-    print(id);
+    print('歌单ID:$id');
     var res = await getMusicListDetail(id);
-    print(res['playlist']['tracks']);
     setState(() {
       songList = res;
     });

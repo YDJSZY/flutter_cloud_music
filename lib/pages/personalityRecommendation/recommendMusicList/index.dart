@@ -87,7 +87,7 @@ class _RecommendMusicList extends State<RecommendMusicList> {
   _checkMusicListMore() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HighqualityMusic('推荐')), // 查看更多推荐歌单
+      MaterialPageRoute(builder: (context) => HighqualityMusic('全部')), // 查看更多推荐歌单
     );
   }
 
